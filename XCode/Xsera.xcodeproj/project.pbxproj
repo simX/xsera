@@ -218,6 +218,7 @@
 		49F348820ECC222C00983EE6 /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
 		49F348840ECC223A00983EE6 /* Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics.cpp; sourceTree = "<group>"; };
 		7A8C711F0EDB0FB700CFE5D3 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds; path = ../Resources/Sounds; sourceTree = SOURCE_ROOT; };
+		7ABC32150EE1B8C900C2FDBC /* fractalmonster.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fractalmonster.lua; path = ../Resources/Scripts/Modes/fractalmonster.lua; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,6 +409,7 @@
 		496923FD0EBE4CD500930DDD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7ABC32150EE1B8C900C2FDBC /* fractalmonster.lua */,
 				49A79EDD0ED7848F00517488 /* XarFile.cpp */,
 				49A79EDE0ED7848F00517488 /* XarFile.h */,
 				49D5441F0ED5E854002FC38E /* GameTime.h */,
