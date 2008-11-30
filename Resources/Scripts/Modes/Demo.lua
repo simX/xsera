@@ -61,6 +61,9 @@ local arrowAlpha = math.atan2(10, 100 - fivesqrt3)
 function update ()
     local newTime = mode_manager.time()
     local dt = newTime - lastTime
+    if dt == 0 then
+        return -- if dt is too small, then skip updates this frame and wait for next frame
+    end
     lastTime = newTime
     
     local angularVelocity = 0.0
@@ -107,10 +110,6 @@ end
 
 function render ()
     graphics.begin_frame()
-	
-    local newTime = mode_manager.time()
-    local dt = newTime - lastTime
-    lastTime = newTime
 	
 --	heavy_cruiser_rotation = ship:angle()
 	local shipLocation = ship:location()
@@ -191,14 +190,11 @@ function fire_bullet(x, y, angle)
 	if bullet.ammo > 0 then
 --		local shipLocation = physbullet:location()
 --		local shipVelocity = physbullet:speed()
-		physbullet = PhysicsObject(1.0, shipLocation.x, shipLocation.y, shipVelocity.x, shipVelocity.y, ship:angle())
+		physbullet = PhysicsObject(1.0, {shipLocation.x, shipLocation.y}, {shipVelocity.x, shipVelocity.y}, ship:angle())
 		physbullet:set_top_speed(50.0)
 		physbullet:set_top_angular_velocity(0.1)
 		physbullet:set_rotational_drag(0.2)
 		physbullet:set_drag(0.0)
-		local newTime = mode_manager.time()
-		local dt = newTime - lastTime
-		lastTime = newTime
 		force = { x = 0, y = 0 }
 --		physbullet:update(dt, force, 0.0)
 		
