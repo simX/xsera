@@ -80,6 +80,8 @@ function key ( k )
         sizeFactor = sizeFactor - 0.1
     elseif k == "d" then
         mode_manager.switch("Demo")
+    elseif k == "p" then
+        mode_manager.switch("fractalmonster")
     elseif k == "t" then
         mode_manager.switch("AngleTest")
     else
