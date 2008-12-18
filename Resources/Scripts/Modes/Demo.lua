@@ -108,6 +108,7 @@ function update ()
 		local bulletVelocity = physbullet:velocity()
 		bullet.alpha = find_angle({ x = 0, y = 0 }, physbullet:velocity())
 		bullet.beta = find_angle(physbullet:location(), bullet.dest)
+		bullet.delta = 0
 		print(bullet.alpha)
 		print(bullet.beta)
 		print(bullet.theta)
