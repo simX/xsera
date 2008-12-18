@@ -11,6 +11,7 @@
 -- Use other Heavy Cruisers (possibly built on planets) to destroy Carrier, using attack command.
 
 import('Physics')
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
 ship = PhysicsObject(1000.0) -- a one thousand tonne ship
 
 import('ShipLoad')
@@ -19,16 +20,38 @@ import('Bullet4Demo')
 
 twothirdspi = 2.0 / 3.0 * math.pi
 camera = { w = 1000, h = 1000 }
+=======
+ship = PhysicsObject(1000.0, { 0, 0 }, { 0, 0 }, 0) -- a one thousand tonne ship
+
+-- import('Bullet4Demo')
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
 
 ships = {}
 carrierRotation = 0
 carrierHealth = 10
 carrierExploded = false
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
 
+=======
+hCruiserRotation = 0
+hCruiserSize = {}
+hCruiserSize[1], hCruiserSize[2] = graphics.sprite_dimensions("Ishiman/HeavyCruiser")
+--velocity = { increment = { x = 0, y = 0 }, real = { speed = 0, x = 0, y = 0, rot = 0 }, increase = 0.1, decrease = -0.2, max = 5 }
+twothirdspi = 2.0 / 3.0 * math.pi
+fivesqrt3 = (5 * math.sqrt(3))
+local sigma = 0
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
 drawshot = false
 shotfired = 0
 shot = { x = 0, y = 0, move = 0 }
 local frame = 0
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
+=======
+local ddt = 0
+arrowLength = 30
+local bulletFired = false
+local bulletRotation = 0
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
 
 local bulletFired = false
 local bulletRotation = 0
@@ -47,10 +70,22 @@ local arrowVar = (5.5 * math.sqrt(3))
 local arrowDist = hypot(11, (300 - arrowVar))
 local arrowAlpha = math.atan2(11, arrowDist)
 
+local arrowDist = hypot(10, (100 - fivesqrt3))
+local arrowAlpha = math.atan2(10, 100 - fivesqrt3)
+
 function update ()
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
 	local newTime = mode_manager.time()
 	local dt = newTime - lastTime
 	lastTime = newTime
+=======
+    local newTime = mode_manager.time()
+    local dt = newTime - lastTime
+    if dt == 0 then
+        return -- if dt is too small, then skip updates this frame and wait for next frame
+    end
+    lastTime = newTime
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
     
     local angularVelocity = 0.0
     if keysDown.left then
@@ -175,13 +210,21 @@ function render ()
     if carrierHealth ~= 0 then
 		graphics.draw_sprite("Gaitori/Carrier", carrierLocation.x, carrierLocation.y, Gai_Carrier_Size[1], Gai_Carrier_Size[2], carrierRotation)
     else
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
 		if carrierExploded == false then
+=======
+		if carrierExploded == false then -- I need a wait() or timer or something to delay the flash of the explosion
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
 			if frame == 0 then
 				sound.play("New/ExplosionCombo")
 			end
 			local explosion = {}
 			explosion[1], explosion[2] = graphics.sprite_dimensions("Explosions/BestExplosion")
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
 			graphics.draw_sprite("Explosions/BestExplosion", carrierLocation.x, carrierLocation.y, explosion[1], explosion[2], frame / 6 * math.pi)
+=======
+			graphics.draw_sprite("Explosions/BestExplosion", carrierLocation[1], carrierLocation[2], explosion[1], explosion[2], frame / 6 * math.pi)
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
 			if frame == 12 then
 				carrierExploded = true
 			else
@@ -189,13 +232,38 @@ function render ()
 			end
 		end
 	end
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
 	graphics.draw_sprite("Ishiman/HeavyCruiser", shipLocation.x, shipLocation.y, Ish_hCruiser_Size[1], Ish_hCruiser_Size[2], ship:angle())
 	
+=======
+	graphics.draw_sprite("Ishiman/HeavyCruiser", shipLocation.x, shipLocation.y, hCruiserSize[1], hCruiserSize[2], ship:angle())
+	
+	if firebullet == true then
+		fire_bullet(shipLocation.x, shipLocation.y, ship:angle())
+		firebullet = false
+		bulletFired = true
+	end
+	if bulletFired == true then
+		moving_bullet()
+	end
+	
+	
+	if drawshot == true then
+		bulletRotation = ship:angle()
+		shot.x = shipLocation.x
+		shot.y = shipLocation.y
+		shot.move = 19
+		graphics.draw_line(shot.x + math.cos(bulletRotation) * 17, shot.y + math.sin(bulletRotation) * 17, shot.x + math.cos(bulletRotation) * 52, shot.y + math.sin(bulletRotation) * 52, 2)
+		drawshot = false
+		shotfired = true
+	end
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
 	if shotfired == true then
 		shot.move = shot.move + 15
 		if shot.move >= 240 then
 			shotfired = false
 		end
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
 		graphics.draw_line(shot.x + math.cos(bulletRotation) * shot.move, shot.y + math.sin(bulletRotation) * shot.move, shot.x + math.cos(bulletRotation) * (30 + shot.move), shot.y + math.sin(bulletRotation) * (30 + shot.move), 2)
 	end
 	
@@ -221,16 +289,94 @@ function render ()
 	graphics.draw_line(math.cos(ship:angle()) * (300 + arrowVar), math.sin(ship:angle()) * (300 + arrowVar), math.cos(arrowAlpha + ship:angle()) * arrowDist, math.sin(arrowAlpha + ship:angle()) * arrowDist, 2)
 	--[[
 	graphics.set_camera(0, 0, 640, 480)
+=======
+		graphics.draw_line(shot.x + math.cos(bulletRotation) * shot.move, shot.y + math.sin(bulletRotation) * shot.move, shot.x + math.cos(bulletRotation) * (40 + shot.move), shot.y + math.sin(bulletRotation) * (40 + shot.move), 2)
+	end
+	
+	
+	graphics.set_camera(-camera.width / 2.0, -camera.height / 2.0, camera.width / 2.0, camera.width / 2.0)
+	
+	graphics.draw_line(math.cos(arrowAlpha + ship:angle()) * arrowDist, math.sin(arrowAlpha + ship:angle()) * arrowDist, math.cos(ship:angle() - arrowAlpha) * arrowDist, math.sin(ship:angle() - arrowAlpha) * arrowDist, 2)
+	graphics.draw_line(math.cos(ship:angle() - arrowAlpha) * arrowDist, math.sin(ship:angle() - arrowAlpha) * arrowDist, math.cos(ship:angle()) * (100 + fivesqrt3), math.sin(ship:angle()) * (100 + fivesqrt3), 2)
+	graphics.draw_line(math.cos(ship:angle()) * (100 + fivesqrt3), math.sin(ship:angle()) * (100 + fivesqrt3), math.cos(arrowAlpha + ship:angle()) * arrowDist, math.sin(arrowAlpha + ship:angle()) * arrowDist, 2)
+	-- graphics.draw_line(math.cos(ship:angle()) * (100 + fivesqrt3), math.sin(ship:angle()) * (100 + fivesqrt3), 0, 0, 2)
+	--[[graphics.set_camera(0, 0, 640, 480)
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
 	graphics.draw_image("Panels/SideLeft", 31, 240, 69.29, 480)
 	graphics.draw_image("Panels/SideRight", 634, 240, 12.69, 480)
 	--]]
 	-- why did you change the dimensions to 640x480? They were fine before
+<<<<<<< HEAD:Resources/Scripts/Modes/Demo.lua
 	graphics.set_camera(-500, -500, 500, 500)
 	graphics.draw_image("Panels/SideLeft", -435, 0, 129, 1012)
     graphics.draw_image("Panels/SideRight", 487, -2, 27, 1020)
 	graphics.end_frame()
 end
 
+=======
+	graphics.set_camera(-camera.width / 2.0, -camera.height / 2.0, camera.width / 2.0, camera.width / 2.0)
+	graphics.draw_image("Panels/SideLeft", -435, 0, 129, 1000)
+    graphics.draw_image("Panels/SideRight", 487, 0, 27, 1000)
+	graphics.end_frame()
+end
+
+
+
+bullet = { x = 0, y = 0, dest = { x = 100, y = 50 }, lock = { x = false, y = false }, velocity = 1, beta = 0, theta = 0, size = { x = 0, y = 0 }, turn_rate = 0.01, ammo = 50 }
+bullet.size.x, bullet.size.y = graphics.sprite_dimensions("Weapons/WhiteYellowMissile")
+firebullet = false
+bulletfired = false
+
+function fire_bullet(x, y, angle)
+	if bullet.ammo > 0 then
+--		local shipLocation = physbullet:location()
+--		local shipVelocity = physbullet:speed()
+		physbullet = PhysicsObject(1.0, {shipLocation.x, shipLocation.y}, {shipVelocity.x, shipVelocity.y}, ship:angle())
+		physbullet:set_top_speed(50.0)
+		physbullet:set_top_angular_velocity(0.1)
+		physbullet:set_rotational_drag(0.2)
+		physbullet:set_drag(0.0)
+		force = { x = 0, y = 0 }
+--		physbullet:update(dt, force, 0.0)
+		
+		bullet.x = x
+		bullet.y = y
+		bullet.dest.x = 100
+		bullet.dest.y = 50
+		bullet.beta = math.atan2(bullet.dest.y - bullet.y, bullet.dest.x - bullet.x)
+		bullet.theta = angle
+		bullet.ammo = bullet.ammo - 1
+		sound.play("RocketLaunchr")
+		-- temp sound file, should be "RocketLaunch" but for some reason, that file gets errors (file included in git for troubleshooting)
+		local bulletLocation = physbullet:location()
+		graphics.draw_sprite("Weapons/WhiteYellowMissile", x, y, bulletLocation.x, bulletLocation.y, physbullet:angle())
+	end
+end
+
+function moving_bullet()
+	--[[bullet.beta = math.atan2(bullet.dest.y - bullet.y, bullet.dest.x - bullet.x)
+	if bullet.beta >= bullet.turn_rate then --this if chain changes the angle at which the bullet is going, if necessary
+		bullet.theta = bullet.theta + bullet.turn_rate
+	elseif bullet.beta <= bullet.turn_rate then
+		bullet.theta = bullet.theta - bullet.turn_rate
+	elseif bullet.beta < bullet.turn_rate then 
+		if bullet.beta > 0 then
+			bullet.theta = bullet.theta + bullet.beta
+		end
+	elseif bullet.beta > bullet.turn_rate then
+		if bullet.beta < 0 then
+			bullet.theta = bullet.theta - bullet.beta
+		end
+	end
+	bullet.x = bullet.x + math.cos(bullet.beta) * bullet.velocity
+	bullet.y = bullet.y + math.sin(bullet.beta) * bullet.velocity
+	bullet.theta = bullet.theta % (math.pi * 2)
+	--]] -- this code is the old turning code
+	local bulletLocation = physbullet:location()
+	graphics.draw_sprite("Weapons/WhiteYellowMissile", bulletLocation.x, bulletLocation.y, bullet.size.x, bullet.size.y, physbullet:angle())
+end
+
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modes/Demo.lua
 function keyup ( k )
     if k == "w" then
         keysDown.accelerate = false

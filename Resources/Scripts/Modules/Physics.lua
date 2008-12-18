@@ -1,11 +1,17 @@
 -- physics engine
 class "PhysicsObject"
 
+<<<<<<< HEAD:Resources/Scripts/Modules/Physics.lua
 function PhysicsObject:initialize(baseMass)
 	self._location = { x = 0, y = 0 }
 	self._velocity = { x = 0, y = 0 }
+=======
+function PhysicsObject:initialize(baseMass, location, velocity, angle)
+	self._location = location
+	self._velocity = velocity
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modules/Physics.lua
 	self._top_speed = 1.0
-	self._angle = 0.0
+	self._angle = angle
 	self._angular_velocity = 0.0
 	self._top_angular_velocity = 1.0
 	self._mass = baseMass
@@ -36,7 +42,12 @@ function PhysicsObject:set_rotational_drag ( rotational_drag )
 end
 
 function PhysicsObject:speed ()
+<<<<<<< HEAD:Resources/Scripts/Modules/Physics.lua
 	return math.sqrt(self._velocity.x * self._velocity.x + self._velocity.y * self._velocity.y)
+=======
+--	return math.sqrt(self._velocity.x * self._velocity.x + self._velocity.y * self._velocity.y)
+	return self._velocity.x, self._velocity.y
+>>>>>>> bf428c5e84ed3420d41c8ecace04806d59c3cff1:Resources/Scripts/Modules/Physics.lua
 end
 
 function PhysicsObject:drag ()
